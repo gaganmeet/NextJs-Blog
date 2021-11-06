@@ -50,7 +50,7 @@ export const getRecentPosts = async () => {
     }    
     `;
   const data = await request(graphqlAPI, query);
-  return data.postsConnection.edges;
+    return data.posts;;
 };
 
 export const getSimilarPosts = async () => {
@@ -67,5 +67,18 @@ export const getSimilarPosts = async () => {
     }
     `
     const data = await request(graphqlAPI, query, { slug, categories: [slug] });
-    return data.postsConnection.edges;
+    return data.posts;
+}
+
+export const getCategories = async () => {
+    const query = gql`
+    query GetCategories{
+        categories {
+            name
+            slug
+        }
+    }
+    `
+    const data = await request(graphqlAPI, query);
+    return data.categories;
 }
